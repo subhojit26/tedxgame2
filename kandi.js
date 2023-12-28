@@ -744,19 +744,7 @@ function animate() {
     ticker++;
   }
 }
-
-/**
- * Keep track of the spacebar events
- */
-var KEY_CODES = {
-  32: 'space'
-};
-var KEY_STATUS = {};
-for (var code in KEY_CODES) {
-  if (KEY_CODES.hasOwnProperty(code)) {
-     KEY_STATUS[KEY_CODES[code]] = false;
-  }
-}
+// Listen for keydown and keyup events
 document.onkeydown = function(e) {
   var keyCode = (e.keyCode) ? e.keyCode : e.charCode;
   if (KEY_CODES[keyCode]) {
@@ -764,6 +752,7 @@ document.onkeydown = function(e) {
     KEY_STATUS[KEY_CODES[keyCode]] = true;
   }
 };
+
 document.onkeyup = function(e) {
   var keyCode = (e.keyCode) ? e.keyCode : e.charCode;
   if (KEY_CODES[keyCode]) {
@@ -771,6 +760,18 @@ document.onkeyup = function(e) {
     KEY_STATUS[KEY_CODES[keyCode]] = false;
   }
 };
+
+// Listen for mousedown event anywhere on the screen
+document.addEventListener('mousedown', function() {
+  // Simulate a spacebar press when the user clicks
+  KEY_STATUS['space'] = true;
+
+  // Simulate a keyup event after a short delay (you may adjust the delay as needed)
+  setTimeout(function() {
+    KEY_STATUS['space'] = false;
+  }, 200);
+});
+
 
 /**
  * Request Animation Polyfill
